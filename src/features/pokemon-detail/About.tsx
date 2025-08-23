@@ -2,7 +2,7 @@
 
 import { Pokemon } from "@/types/pokemon";
 import { useParams } from "next/navigation";
-import { useSpeciesDetail } from "./useSpeciesDetail";
+import { useSpeciesDetail } from "@/hooks/useSpeciesDetail";
 
 export function About({ pokemon }: { pokemon?: Pokemon }) {
   const params = useParams<{ id: string }>();

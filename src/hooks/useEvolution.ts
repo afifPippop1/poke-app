@@ -1,7 +1,7 @@
 import { useQuery } from "@tanstack/react-query";
-import { getEvolution } from "./api";
+import { getEvolution } from "@/api/pokemon-detail";
 
-export function useEvolution(id: string) {
+export function useEvolution(id: number) {
   const query = useQuery({
     queryKey: ["pokemon", "detail", "evolution", id],
     queryFn: () => getEvolution(id),

@@ -1,20 +1,26 @@
 import { Tag } from "@/components/common/Tag";
 import { Card, CardContent, CardTitle } from "@/components/ui/card";
+import { usePokemonDetail } from "@/hooks/usePokemonDetailById";
 import { getPokemonBackgroundColor, getPokemonImageUrl } from "@/lib/utils";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
-import { usePokemonDetailByUrl } from "./usePokemonDetail";
+import { CardSkeleton } from "./PokemonCardSkeleton";
 
 type PokemonCardProps = {
   name: string;
-  url: string;
 };
 
-export function PokemonCard({ name, url }: PokemonCardProps) {
-  const { query } = usePokemonDetailByUrl(url);
-  const img = getPokemonImageUrl(query.data?.id);
-  const types = query.data?.types || [];
+export function PokemonCard({ name }: PokemonCardProps) {
+  const { data, isFetching } = usePokemonDetail(name);
+  const img = getPokemonImageUrl(data?.id);
+  const types = data?.types || [];
   const router = useRouter();
+
+  function handleRouteChange() {
+    router.push(`/pokemon/${name}`);
+  }
+
+  if (isFetching) return <CardSkeleton />;
 
   return (
     <Card
@@ -22,7 +28,7 @@ export function PokemonCard({ name, url }: PokemonCardProps) {
       style={{
         backgroundColor: getPokemonBackgroundColor(types?.[0]?.type.name),
       }}
-      onClick={() => router.push(`/pokemon/${query.data?.id}`)}
+      onClick={handleRouteChange}
     >
       <CardContent className="flex flex-col gap-2 p-2">
         <div className="z-10">

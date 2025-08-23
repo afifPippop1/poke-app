@@ -1,0 +1,28 @@
+import React from "react";
+
+type BackIconProps = {
+  onClick?: React.MouseEventHandler<SVGSVGElement>;
+  color?: string;
+};
+
+export function BackIcon({ onClick, color = "black" }: BackIconProps) {
+  return (
+    <svg
+      width="16"
+      height="16"
+      viewBox="0 0 16 16"
+      fill="none"
+      xmlns="http://www.w3.org/2000/svg"
+      onClick={onClick}
+      style={{ cursor: onClick ? "pointer" : "default" }}
+    >
+      <path
+        d="M10.25 3.5L5.75 8L10.25 12.5"
+        stroke={color}
+        strokeWidth="1.5"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+      />
+    </svg>
+  );
+}

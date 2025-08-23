@@ -1,5 +1,5 @@
 import { useQuery } from "@tanstack/react-query";
-import { getPokemonSpeciesDetail } from "./api";
+import { getPokemonSpeciesDetail } from "@/api/pokemon-detail";
 
 export function useSpeciesDetail(id: string) {
   const query = useQuery({

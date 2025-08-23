@@ -3,7 +3,7 @@ import { EvolutionDetail } from "@/types/pokemon";
 import Image from "next/image";
 import { useParams } from "next/navigation";
 import React from "react";
-import { useEvolution } from "./useEvolution";
+import { useEvolution } from "@/hooks/useEvolution";
 
 function parseEvolutionChain(
   chain: EvolutionDetail
@@ -24,9 +24,8 @@ function capitalize(name: string): string {
   return name.charAt(0).toUpperCase() + name.slice(1);
 }
 
-export function Evolution() {
-  const params = useParams<{ id: string }>();
-  const { data: chain } = useEvolution(params.id);
+export function Evolution({ id }: { id: number }) {
+  const { data: chain } = useEvolution(id);
   if (!chain) {
     return null;
   }

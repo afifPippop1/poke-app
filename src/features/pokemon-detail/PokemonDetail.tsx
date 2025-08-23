@@ -14,7 +14,7 @@ import { Moves } from "./Moves";
 export function PokemonDetail() {
   const params = useParams<{ id: string }>();
   const { data } = usePokemonDetailById(params.id);
-  const img = getPokemonImageUrl(data);
+  const img = getPokemonImageUrl(data?.id);
   const backgroundColor = getPokemonBackgroundColor(
     data?.types[0].type.name || ""
   );

@@ -12,7 +12,7 @@ type PokemonCardProps = {
 
 export function PokemonCard({ name, url }: PokemonCardProps) {
   const { query } = usePokemonDetailByUrl(url);
-  const img = getPokemonImageUrl(query.data);
+  const img = getPokemonImageUrl(query.data?.id);
   const types = query.data?.types || [];
   const router = useRouter();
 

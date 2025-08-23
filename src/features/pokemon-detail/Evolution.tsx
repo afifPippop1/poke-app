@@ -33,9 +33,9 @@ export function Evolution() {
 
   const stages = parseEvolutionChain(chain.chain);
 
-  function getIdFromSpeciesUrl(url: string): string {
+  function getIdFromSpeciesUrl(url: string): number {
     const parts = url.split("/").filter(Boolean);
-    return parts[parts.length - 1];
+    return Number(parts[parts.length - 1]);
   }
 
   return (

@@ -1,6 +1,7 @@
 import { Tag } from "@/components/common/Tag";
 import { Card, CardContent, CardTitle } from "@/components/ui/card";
 import { usePokemonDetail } from "@/hooks/usePokemonDetail";
+import { isDesktop } from "@/lib/isDesktop";
 import { getPokemonBackgroundColor, getPokemonImageUrl } from "@/lib/utils";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
@@ -17,7 +18,11 @@ export function PokemonCard({ name }: PokemonCardProps) {
   const router = useRouter();
 
   function handleRouteChange() {
-    router.push(`/pokemon/${name}`);
+    if (isDesktop()) {
+      router.push(`/?pokemon=${name}`);
+    } else {
+      router.push(`/pokemon/${name}`);
+    }
   }
 
   if (isFetching) return <CardSkeleton />;

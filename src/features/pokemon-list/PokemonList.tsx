@@ -1,14 +1,17 @@
 "use client";
 
+import { usePokemonList } from "@/hooks/usePokemonList";
+import { isDesktop } from "@/lib/isDesktop";
 import { useEffect, useRef } from "react";
 import { PokemonCard } from "../pokemon-card/PokemonCard";
 import { CardListSkeleton } from "../pokemon-card/PokemonCardSkeleton";
-import { usePokemonList } from "@/hooks/usePokemonList";
+import { PokemonDrawer } from "./PokemonDrawer";
 
 export function PokemonList() {
   const { isFetching, data, isFetchingNextPage, hasNextPage, fetchNextPage } =
     usePokemonList();
   const loaderRef = useRef<HTMLDivElement | null>(null);
+  const desktop = isDesktop();
 
   useEffect(() => {
     if (!loaderRef.current) return;
@@ -40,7 +43,7 @@ export function PokemonList() {
     );
 
   return (
-    <div className="grid grid-cols-2 gap-4 overflow-y-auto h-full p-4 pb-14">
+    <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 overflow-y-auto h-full p-4 pb-14">
       {data?.pages.map((page) =>
         page.results?.map(({ name }) => <PokemonCard key={name} name={name} />)
       )}
@@ -48,6 +51,7 @@ export function PokemonList() {
       <div ref={loaderRef} className="flex items-center justify-center">
         {isFetchingNextPage ? <CardListSkeleton /> : <></>}
       </div>
+      {desktop && <PokemonDrawer />}
     </div>
   );
 }

@@ -1,21 +1,19 @@
 "use client";
 
+import { BackIcon } from "@/components/common/BackIcon";
 import { Tag } from "@/components/common/Tag";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { usePokemonDetail } from "@/hooks/usePokemonDetail";
 import { getPokemonBackgroundColor, getPokemonImageUrl } from "@/lib/utils";
 import Image from "next/image";
-import { useParams } from "next/navigation";
+import Link from "next/link";
 import { About } from "./About";
 import { BaseStats } from "./BaseStats";
 import { Evolution } from "./Evolution";
 import { Moves } from "./Moves";
-import { BackIcon } from "@/components/common/BackIcon";
-import Link from "next/link";
 
-export function PokemonDetail() {
-  const params = useParams<{ id: string }>();
-  const { data, isFetching } = usePokemonDetail(params.id);
+export function PokemonDetail({ name }: { name: string }) {
+  const { data, isFetching } = usePokemonDetail(name);
   const img = getPokemonImageUrl(data?.id);
   const backgroundColor = getPokemonBackgroundColor(
     data?.types[0].type.name || ""
@@ -25,7 +23,7 @@ export function PokemonDetail() {
 
   if (data) {
     return (
-      <div className="h-screen w-screen" style={{ backgroundColor }}>
+      <div className="h-screen w-full" style={{ backgroundColor }}>
         <div className="h-[50vh] p-8 relative flex gap-4">
           <div className="flex items-center h-8">
             <Link href="/">
@@ -33,9 +31,7 @@ export function PokemonDetail() {
             </Link>
           </div>
           <div>
-            <h2 className="text-white capitalize font-bold text-2xl">
-              {data?.name}
-            </h2>
+            <h2 className="text-white capitalize font-bold text-2xl">{name}</h2>
             <div className="flex gap-1 items-start">
               {types.map((type) => (
                 <Tag key={type.slot}>{type.type.name}</Tag>
@@ -75,7 +71,7 @@ export function PokemonDetail() {
             </TabsContent>
 
             <TabsContent value="evolution">
-              <Evolution />
+              <Evolution name={name} />
             </TabsContent>
             <TabsContent value="moves">
               <Moves moves={data.moves} />

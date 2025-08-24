@@ -24,9 +24,8 @@ function capitalize(name: string): string {
   return name.charAt(0).toUpperCase() + name.slice(1);
 }
 
-export function Evolution() {
-  const params = useParams<{id: string}>()
-  const { data: chain } = useEvolution(params.id);
+export function Evolution({ name }: { name: string }) {
+  const { data: chain } = useEvolution(name);
   if (!chain) {
     return null;
   }

@@ -1,6 +1,7 @@
 "use client";
 
 import { usePokemonList } from "@/hooks/usePokemonList";
+import { useScrollRestoration } from "@/hooks/useScrollRestoration";
 import { isDesktop } from "@/lib/isDesktop";
 import { useEffect, useRef } from "react";
 import { PokemonCard } from "../pokemon-card/PokemonCard";
@@ -12,6 +13,7 @@ export function PokemonList() {
     usePokemonList();
   const loaderRef = useRef<HTMLDivElement | null>(null);
   const desktop = isDesktop();
+  const listRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     if (!loaderRef.current) return;
@@ -35,6 +37,11 @@ export function PokemonList() {
     };
   }, [hasNextPage, fetchNextPage]);
 
+  const { onRouteChange } = useScrollRestoration(
+    "pokemon-list-scroll",
+    listRef
+  );
+
   if (isFetching && !isFetchingNextPage)
     return (
       <div className="grid grid-cols-2 gap-4 p-4 pb-14">
@@ -43,9 +50,14 @@ export function PokemonList() {
     );
 
   return (
-    <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 overflow-y-auto h-full p-4 pb-14">
+    <div
+      className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 overflow-y-auto h-full p-4 pb-14"
+      ref={listRef}
+    >
       {data?.pages.map((page) =>
-        page.results?.map(({ name }) => <PokemonCard key={name} name={name} />)
+        page.results?.map(({ name }) => (
+          <PokemonCard key={name} name={name} onClick={onRouteChange} />
+        ))
       )}
       <CardListSkeleton />
       <div ref={loaderRef} className="flex items-center justify-center">

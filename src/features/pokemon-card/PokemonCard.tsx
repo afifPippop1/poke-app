@@ -9,15 +9,17 @@ import { CardSkeleton } from "./PokemonCardSkeleton";
 
 type PokemonCardProps = {
   name: string;
+  onClick?: () => void;
 };
 
-export function PokemonCard({ name }: PokemonCardProps) {
+export function PokemonCard({ name, onClick }: PokemonCardProps) {
   const { data, isFetching } = usePokemonDetail(name);
   const img = getPokemonImageUrl(data?.id);
   const types = data?.types || [];
   const router = useRouter();
 
   function handleRouteChange() {
+    onClick?.();
     if (isDesktop()) {
       router.push(`/?pokemon=${name}`);
     } else {

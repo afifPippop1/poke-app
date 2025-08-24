@@ -1,9 +1,5 @@
-
 type Ability = {
-  ability: {
-    name: string;
-    url: string;
-  };
+  ability: NamedAPIResource;
   is_hidden: boolean;
   slot: number;
 };
@@ -14,27 +10,9 @@ type Cries = {
   legacy: string;
 };
 
-type PokemonForm = {
-  name: string;
-  url: string;
-};
-
 type PokemonGameIndecy = {
   game_index: number;
-  version: {
-    name: string;
-    url: string;
-  };
-};
-
-type PokemonGeneration = {
-  name: string;
-  url: string; //url
-};
-
-type PokemonSpeciesInfo = {
-  name: string;
-  url: string;
+  version: NamedAPIResource;
 };
 
 // Image Sprites
@@ -93,25 +71,15 @@ type PokemonSprites = Sprites & {
   };
 };
 
-type StatsInfo = {
-  name: string;
-  url: string;
-};
-
 export type PokemonStats = {
   base_stat: 60;
   effort: 0;
-  stat: StatsInfo;
-};
-
-type PokemonTypeInfo = {
-  name: string;
-  url: string;
+  stat: NamedAPIResource;
 };
 
 type PokemonType = {
   slot: number;
-  type: PokemonTypeInfo;
+  type: NamedAPIResource;
 };
 
 export type Pokemon = {
@@ -121,7 +89,7 @@ export type Pokemon = {
   abilities: Ability[];
   base_experience: number;
   cries: Cries;
-  forms: PokemonForm[];
+  forms: NamedAPIResource[];
   game_indecies: PokemonGameIndecy[];
   height: number;
   // TODO: HeldItem
@@ -130,20 +98,76 @@ export type Pokemon = {
   location_area_encounters: string; // url string
   // TODO: Move
   moves: [];
-  past_abilities: { abilties: Ability[]; generation: PokemonGeneration }[];
+  past_abilities: { abilties: Ability[]; generation: NamedAPIResource }[];
   // TODO: Past Types
   past_types: [];
-  species: PokemonSpeciesInfo;
+  species: NamedAPIResource;
   sprites: PokemonSprites;
   stats: PokemonStats[];
   types: PokemonType[];
   weight: number;
 };
 
-export type PokemonSpecies = {
-  genera: { genus: string; language: { name: string } }[];
-};
+export interface PokemonSpecies {
+  id: number;
+  name: string;
+  order: number;
+  gender_rate: number;
+  capture_rate: number;
+  base_happiness: number;
+  is_baby: boolean;
+  is_legendary: boolean;
+  is_mythical: boolean;
+  hatch_counter: number;
+  has_gender_differences: boolean;
+  forms_switchable: boolean;
 
+  growth_rate: NamedAPIResource;
+  pokedex_numbers: {
+    entry_number: number;
+    pokedex: NamedAPIResource;
+  }[];
+  egg_groups: NamedAPIResource[];
+  color: NamedAPIResource;
+  shape: NamedAPIResource;
+  evolves_from_species: NamedAPIResource | null;
+  evolution_chain: {
+    url: string;
+  };
+  habitat: NamedAPIResource | null;
+  generation: NamedAPIResource;
+
+  names: {
+    name: string;
+    language: NamedAPIResource;
+  }[];
+
+  flavor_text_entries: {
+    flavor_text: string;
+    language: NamedAPIResource;
+    version: NamedAPIResource;
+  }[];
+
+  form_descriptions: {
+    description: string;
+    language: NamedAPIResource;
+  }[];
+
+  genera: {
+    genus: string;
+    language: NamedAPIResource;
+  }[];
+
+  varieties: {
+    is_default: boolean;
+    pokemon: NamedAPIResource;
+  }[];
+}
+
+export interface NamedAPIResource {
+  name: string;
+  url: string;
+}
 
 export type EvolutionDetail = {
   species: { name: string; url: string };

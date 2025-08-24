@@ -75,7 +75,7 @@ export function PokemonDetail() {
             </TabsContent>
 
             <TabsContent value="evolution">
-              <Evolution id={data.id} />
+              <Evolution />
             </TabsContent>
             <TabsContent value="moves">
               <Moves moves={data.moves} />

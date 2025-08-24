@@ -10,15 +10,16 @@ export async function getPokemonDetail(name: string): Promise<Pokemon> {
 }
 
 export async function getPokemonSpeciesDetail(
-  name: string
+  name: string | number
 ): Promise<PokemonSpecies> {
   const response = await fetch(`${env.pokemonApiUrl}/pokemon-species/${name}`);
   const result = await response.json();
   return result;
 }
 
-export async function getEvolution(id: number) {
-  const response = await fetch(`${env.pokemonApiUrl}/evolution-chain/${id}`);
+export async function getEvolution(name: string) {
+  const species = await getPokemonSpeciesDetail(name);
+  const response = await fetch(species.evolution_chain.url);
   const result = await response.json();
   return result;
 }

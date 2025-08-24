@@ -1,9 +1,8 @@
+import { useEvolution } from "@/hooks/useEvolution";
 import { getPokemonImageUrl } from "@/lib/utils";
 import { EvolutionDetail } from "@/types/pokemon";
 import Image from "next/image";
-import { useParams } from "next/navigation";
 import React from "react";
-import { useEvolution } from "@/hooks/useEvolution";
 
 function parseEvolutionChain(
   chain: EvolutionDetail

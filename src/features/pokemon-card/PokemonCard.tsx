@@ -1,6 +1,6 @@
 import { Tag } from "@/components/common/Tag";
 import { Card, CardContent, CardTitle } from "@/components/ui/card";
-import { usePokemonDetail } from "@/hooks/usePokemonDetailById";
+import { usePokemonDetail } from "@/hooks/usePokemonDetail";
 import { getPokemonBackgroundColor, getPokemonImageUrl } from "@/lib/utils";
 import Image from "next/image";
 import { useRouter } from "next/navigation";

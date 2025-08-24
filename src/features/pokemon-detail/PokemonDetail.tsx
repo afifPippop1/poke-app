@@ -2,7 +2,7 @@
 
 import { Tag } from "@/components/common/Tag";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import { usePokemonDetail } from "@/hooks/usePokemonDetailById";
+import { usePokemonDetail } from "@/hooks/usePokemonDetail";
 import { getPokemonBackgroundColor, getPokemonImageUrl } from "@/lib/utils";
 import Image from "next/image";
 import { useParams } from "next/navigation";

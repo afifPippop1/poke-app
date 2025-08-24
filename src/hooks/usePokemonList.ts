@@ -4,9 +4,11 @@ import { getPokemonList } from "@/api/pokemon-list";
 export function usePokemonList() {
   const query = useInfiniteQuery({
     queryKey: ["pokemon", "list"],
-    queryFn: ({ pageParam  }) => getPokemonList(pageParam),
+    queryFn: ({ pageParam }) => getPokemonList(pageParam),
     getNextPageParam: (lastPage) => lastPage.next ?? false,
-    initialPageParam: '',
+    initialPageParam: "",
+    refetchOnMount: false,
+    refetchOnWindowFocus: false,
   });
 
   return query;
